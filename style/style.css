@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#usersTable {
+    max-width: 1200px;
+    min-height: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .08);
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 500px;
+    border-collapse: collapse;
+    border: 3px solid #142535;
+    text-align: start;
+    font-family: Roboto, sans-serif;
+}
+
+thead {
+    width: 100%;
+    background-color: #363636;
+    color: whitesmoke;
+    border-bottom: 3px solid #142535;
+    font-weight: bold;
+}
+
+tbody {
+    width: 100%;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #4db8e3;
+}
+
+tbody tr:nth-child(even) {
+    background-color: lightblue;
+}
+
+tr :first-child {
+    width: 10%;
+}
+
+tr :last-child {
+    width: 30%;
+}
+
+tr td:first-child, tr th:first-child {
+    text-align: center;
+}
+
+tr td:last-child {
+    text-align: center;
+}
+
+tr th {
+    padding: 10px;
+    text-align: start;
+}
+
+tr {
+    height: 30px;
+}
+
+td {
+    padding: 5px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    color: #363636;
+}
+
+th, td {
+    border-left: 1px solid #142535;;
+}
+
+thead tr :hover{
+    background-color: #262424;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(odd):hover {
+    background-color: #586f86;;
+    cursor: pointer;
+}
+tbody tr:nth-child(even):hover {
+    background-color: #586f86;;
+    cursor: pointer;
+}
