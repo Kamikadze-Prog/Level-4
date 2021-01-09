@@ -18,6 +18,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.last.introduce.type" value="LET" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -50,7 +51,10 @@
       <workItem from="1610035131078" duration="17000" />
       <workItem from="1610105447611" duration="1185000" />
       <workItem from="1610106807028" duration="1224000" />
-      <workItem from="1610122822234" duration="6449000" />
+      <workItem from="1610122822234" duration="6491000" />
+      <workItem from="1610129873465" duration="145000" />
+      <workItem from="1610199324823" duration="13415000" />
+      <workItem from="1610213161075" duration="641000" />
     </task>
     <servers />
   </component>
@@ -58,21 +62,29 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="769" y="221" key="#Inspections" timestamp="1608972383554">
+    <state x="769" y="221" key="#Inspections" timestamp="1610206172302">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="221" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1608972383554" />
+    <state x="769" y="221" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1610206172302" />
     <state x="988" y="302" key="FileChooserDialogImpl" timestamp="1610035146821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="988" y="302" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610035146821" />
-    <state x="667" y="224" width="585" height="592" key="find.popup" timestamp="1610107917798">
+    <state x="265" y="146" width="1567" height="893" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1610208487614">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="224" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610107917798" />
-    <state x="1248" y="291" key="run.anything.popup" timestamp="1609165552900">
+    <state x="265" y="146" width="1567" height="893" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610208487614" />
+    <state x="667" y="224" width="585" height="592" key="find.popup" timestamp="1610206850480">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1248" y="291" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609165552900" />
+    <state x="667" y="224" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610206850480" />
+    <state x="1248" y="291" key="run.anything.popup" timestamp="1610213480985">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1248" y="291" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610213480985" />
+    <state x="735" y="301" width="672" height="678" key="search.everywhere.popup" timestamp="1610211814201">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="735" y="301" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610211814201" />
   </component>
 </project>

@@ -1,4 +1,31 @@
-function DataTable(config) {
+async function DataTable(config) {
+
+/*
+    const url = 'https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends';
+    const data = {
+        "id": "30",
+        "createdAt": "2021-01-07T16:09:02.108Z",
+        "name": "Eldridge",
+        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/nicklacke/128.jpg",
+        "surname": "Hand",
+        "birthday": "2020-06-19T01:16:29.797Z"
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // или 'PUT'
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        console.log('Успех:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
+*/
+
     const usersTable = document.querySelector(config.parent);
     const table = document.createElement("table"),
         tHead = document.createElement("tHead"),
@@ -12,20 +39,44 @@ function DataTable(config) {
     Table.appendChild(tBody);
 
     makeTableHead(colNames, "th")
-
     if (config.apiUrl !== undefined && arguments.length === 1) {
-        let data = makeJson(config.apiUrl);
-        const arr = [];
-        console.log(data)
-        data.then(allData => {
-            allData.forEach(element => {
-                arr.push(element);
-            })
-            makeTableBody(arr, dataValues, "td");
-        })
+        makeAndRemoveTable(config.apiUrl, dataValues, tBody, Table);
     } else {
         makeTableBody(data, dataValues, "td");
     }
+}
+
+function makeAndRemoveTable(apiUrl, dataValues, tBody, Table) {
+    makeTableAndContent(apiUrl, dataValues)
+        .then(function removeColumn() {
+            const allRemoveButtons = document.querySelectorAll("button");
+            allRemoveButtons.forEach(element => {
+                element.addEventListener("click", ev => {
+                    /*                    alert(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`);
+                                        fetch(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`, {
+                                               method: 'DELETE',
+                                           }).then(r => {
+                                               console.log(r)
+                                           });*/
+                    tBody.remove();
+                    let newTableBody = document.createElement("tBody")
+                    Table.appendChild(newTableBody);
+                    makeAndRemoveTable(apiUrl, dataValues, newTableBody, Table);
+                });
+            });
+        })
+}
+
+function makeTableAndContent(apiUrl, dataValues) {
+    let data = makeJson(apiUrl);
+    let arr = [];
+    data.then(allData => {
+        allData.forEach(element => {
+            arr.push(element);
+        })
+        makeTableBody(arr, dataValues, "td");
+    })
+    return data;
 }
 
 function makeJson(url) {
@@ -51,6 +102,7 @@ function makeTableHead(object, tagName) {
     Object.keys(object).forEach(function eachKey(key) {
         makeTableElement(typeRow, tagName, headTr, object[key]);
     });
+    makeTableElement(typeRow, tagName, headTr, "Действия");
 }
 
 function makeTableBody(dataObject, dataValues, tagName) {
@@ -67,7 +119,11 @@ function makeTableBody(dataObject, dataValues, tagName) {
         bodyTr.append(typeRow);
         dataValues.forEach(value => {
             makeTableElement(typeRow, tagName, bodyTr, dataItem[value]);
-        })
+        });
+        typeRow = document.createElement("button");
+        typeRow.textContent = "Удалить";
+        typeRow.id = dataItem.id;
+        bodyTr.append(typeRow);
     });
 }
 
