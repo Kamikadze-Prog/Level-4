@@ -80,7 +80,7 @@ function checkInputContent() {
                     }
                 })
                 if (boolean === 4) {
-                  alert("Vse mojem otpravlat")
+                  alert("All user information ready ty send api")
                 } else {
                     boolean = 0;
                 }
