@@ -5,18 +5,28 @@
 }
 
 #usersTable {
-    max-width: 1200px;
+    max-width: 900px;
     min-height: 300px;
     margin: 10px auto;
-    padding: 10px;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .08);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+#add_user {
+    /*width: 100px;*/
+    height: 40px;
+    background: #2B4074;
+    color: #F9F6E5;;
+    border-radius: 2px;
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 18px;
 }
 
 table {
     table-layout: fixed;
-    width: 800px;
+    width: 100%;
     border-collapse: collapse;
     border: 3px solid #142535;
     text-align: start;
@@ -35,7 +45,19 @@ tbody {
     width: 100%;
 }
 
-tbody tr:nth-child(odd) {
+#inputTr label input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+}
+
+#inputTr td {
+    padding: 0;
+    border: 1px;
+}
+
+tbody tr:nth-child(odd), tr label {
     background-color: #4db8e3;
 }
 
@@ -43,15 +65,22 @@ tbody tr:nth-child(even) {
     background-color: lightblue;
 }
 
+tr :first-child  {
+    width: 40px;
+}
+
 tr :first-child {
-    width: 5%;
+    width: 40px;
 }
 
-tr {
-    width: 30%;
+
+
+tr :last-child {
+    width: 120px;
+    min-height: 30px;
 }
 
-tr td:first-child, tr th:first-child, tr th:last-child  {
+tr td:first-child, tr th:first-child, tr th:last-child {
     text-align: center;
 }
 
@@ -64,11 +93,8 @@ tr th {
     text-align: start;
 }
 
-tr {
-    height: 30px;
-}
-
 td {
+    width: 40px;
     padding: 5px;
     font-family: Roboto, sans-serif;
     font-size: 16px;
@@ -89,11 +115,15 @@ tr button {
     text-decoration: none;
     font-weight: bold;
 }
+#add_new_user {
+    background-color: darkgreen;
+}
 
-thead tr :hover{
+thead tr :hover {
     background-color: #262424;
     cursor: pointer;
 }
+
 tr button:hover {
     cursor: pointer;
     background-color: #a90404;
@@ -105,6 +135,6 @@ tbody tr:nth-child(odd):hover, tbody tr:nth-child(even):hover {
     cursor: pointer;
 }
 
-button:visited, button:focus, button:active, button:hover{
-    outline:0 none;
+button:visited, button:focus, button:active, button:hover {
+    outline: 0 none;
 }
