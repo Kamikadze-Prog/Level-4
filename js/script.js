@@ -1,30 +1,27 @@
 async function DataTable(config) {
-
-/*
-    const url = 'https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends';
-    const data = {
-        "id": "30",
-        "createdAt": "2021-01-07T16:09:02.108Z",
-        "name": "Eldridge",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/nicklacke/128.jpg",
-        "surname": "Hand",
-        "birthday": "2020-06-19T01:16:29.797Z"
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST', // или 'PUT'
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const json = await response.json();
-        console.log('Успех:', JSON.stringify(json));
-    } catch (error) {
-        console.error('Ошибка:', error);
-    }
-*/
+    // const url = 'https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends';
+    // const data = {
+    //     "id": "53",
+    //     "createdAt": "10 01 2021",
+    //     "name": "Post from test",
+    //     "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/osmanince/128.jpg",
+    //     "surname": "Eva  eva",
+    //     "birthday": "2020-04-04T19"
+    // };
+    //
+    // try {
+    //     const response = await fetch(url, {
+    //         method: 'POST', // или 'PUT'
+    //         body: JSON.stringify(data),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    //     const json = await response.json();
+    //     console.log('Успех:', JSON.stringify(json));
+    // } catch (error) {
+    //     console.error('Ошибка:', error);
+    // }
 
     const usersTable = document.querySelector(config.parent);
     const table = document.createElement("table"),
@@ -49,19 +46,16 @@ async function DataTable(config) {
 function makeAndRemoveTable(apiUrl, dataValues, tBody, Table) {
     makeTableAndContent(apiUrl, dataValues)
         .then(function removeColumn() {
-            const allRemoveButtons = document.querySelectorAll("button");
-            allRemoveButtons.forEach(element => {
+            document.querySelectorAll("button").forEach(element => {
                 element.addEventListener("click", ev => {
-                    /*                    alert(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`);
-                                        fetch(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`, {
-                                               method: 'DELETE',
-                                           }).then(r => {
-                                               console.log(r)
-                                           });*/
-                    tBody.remove();
-                    let newTableBody = document.createElement("tBody")
-                    Table.appendChild(newTableBody);
-                    makeAndRemoveTable(apiUrl, dataValues, newTableBody, Table);
+                    fetch(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`, {
+                        method: 'DELETE',
+                    }).then(function () {
+                        tBody.remove();
+                        const newTableBody = document.createElement("tBody")
+                        Table.append(newTableBody);
+                        makeAndRemoveTable(apiUrl, dataValues, newTableBody, Table);
+                    });
                 });
             });
         })
@@ -73,6 +67,7 @@ function makeTableAndContent(apiUrl, dataValues) {
     data.then(allData => {
         allData.forEach(element => {
             arr.push(element);
+            console.log(element);
         })
         makeTableBody(arr, dataValues, "td");
     })
@@ -112,8 +107,8 @@ function makeTableBody(dataObject, dataValues, tagName) {
         const trBody = document.createElement("tr");
         tableBody.append(trBody);
 
-        let bodyTr = tableBody.lastChild,
-            typeRow = document.createElement(tagName);
+        const bodyTr = tableBody.lastChild;
+        let typeRow = document.createElement(tagName);
         typeRow.textContent = index + 1;
 
         bodyTr.append(typeRow);
