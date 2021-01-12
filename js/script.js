@@ -1,8 +1,5 @@
 function DataTable(config) {
 
-    /*  const date = new Date(data[columnProperty]),
-          birthdayDay = `${addZero(date.getDay() + 1)}.${ addZero(date.getMonth() + 1)}.${date.getFullYear()}`;*/
-
     const usersTable = document.querySelector(config.parent);
     const table = document.createElement("table"),
         tHead = document.createElement("tHead"),
@@ -41,36 +38,39 @@ function checkAndAddNewUser(usersTable, dataValues, tBody, apiUrl) {
         firstTr.append(addUser);
         checkInputContent(apiUrl, dataValues, usersTable);
     }
+
     AddNewUserCol.addEventListener("click", addInputCl);
     removeColumn(apiUrl, dataValues)
 }
 
 function checkInputContent(apiUrl, dataValues, usersTable) {
     const allInput = document.querySelectorAll("input");
-    let   inputValueCounter = 0;
-    // addUser = document.getElementById("add_new_user");
-    allInput.forEach(e => {
+    let inputValueCounter = 0;
+    const addUser = document.getElementById("add_new_user");
 
-        e.addEventListener('keypress', function (e) {
-
-            if (e.key === 'Enter') {
-                allInput.forEach(e => {
-                    if (e.value.length > 0) {
-                        inputValueCounter++;
-                        e.style.borderColor = "white";
-                    } else {
-                        e.style.borderColor = "red";
-                    }
-                })
-                if (inputValueCounter === (dataValues.length+1)) {
-                    alert("All user information ready ty send api")
-                    postUserToApi(apiUrl, allInput, dataValues, usersTable).then();
+    function checkInput(e) {
+        if (e.key === 'Enter') {
+            allInput.forEach(e => {
+                if (e.value.length > 0) {
+                    inputValueCounter++;
+                    e.style.borderColor = "white";
                 } else {
-                    inputValueCounter = 0;
+                    e.style.borderColor = "red";
                 }
+            })
+            if (inputValueCounter === (dataValues.length + 1)) {
+                alert("All user information ready ty send api")
+                postUserToApi(apiUrl, allInput, dataValues, usersTable).then();
+            } else {
+                inputValueCounter = 0;
             }
-        });
-    })
+        }
+    }
+
+    allInput.forEach(e => {
+        e.addEventListener('keypress', checkInput);
+
+    });
 }
 
 async function postUserToApi(apiUrl, allInput, dataValues, usersTable) {
@@ -83,7 +83,7 @@ async function postUserToApi(apiUrl, allInput, dataValues, usersTable) {
     })
     try {
         const response = await fetch(apiUrl, {
-            method: 'POST', // или 'PUT'
+            method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
@@ -130,7 +130,6 @@ function removeColumn(apiUrl, dataValues) {
 }
 
 function removeAndMakeTbody() {
-
     const tBody = document.querySelector("tbody");
     tBody.remove()
     const newTableBody = document.createElement("tBody")
@@ -188,7 +187,12 @@ function makeTableBody(dataObject, dataValues, tagName) {
 
         bodyTr.append(typeRow);
         dataValues.forEach(value => {
-            makeTableElement(typeRow, tagName, bodyTr, dataItem[value]);
+            let dataValue = dataItem[value];
+            if (value === "birthday") {
+                const date = new Date(dataItem[value]);
+                dataValue = `${date.getDay() + 1}.${date.getMonth() + 1}.${date.getFullYear()}`;
+            }
+            makeTableElement(typeRow, tagName, bodyTr, dataValue);
         });
         typeRow = document.createElement("button");
         typeRow.textContent = "Удалить";
