@@ -12,13 +12,17 @@ function DataTable(config) {
     Table.appendChild(tHead);
     Table.appendChild(tBody);
 
-    makeTableHead(colNames, "th")
+    makeTableHead(colNames, "th");
     if (config.apiUrl !== undefined && arguments.length === 1) {
-        makeAndRemoveTable(config.apiUrl, dataValues, tBody, Table);
-        checkAndAddNewUser(usersTable, dataValues, tBody, config.apiUrl);
+        makeNewTableBodyFromApi(usersTable, dataValues, tBody, config.apiUrl)
     } else {
-        makeTableBody(data, dataValues, "td");
+        makeTableBodyFromData(data, dataValues, "td");
     }
+}
+
+function makeNewTableBodyFromApi(usersTable, dataValues, tBody, apiUrl) {
+    makeAndRemoveTable(apiUrl, dataValues, usersTable);
+    checkAndAddNewUser(usersTable, dataValues, tBody, apiUrl);
 }
 
 function checkAndAddNewUser(usersTable, dataValues, tBody, apiUrl) {
@@ -46,7 +50,6 @@ function checkAndAddNewUser(usersTable, dataValues, tBody, apiUrl) {
 function checkInputContent(apiUrl, dataValues, usersTable) {
     const allInput = document.querySelectorAll("input");
     let inputValueCounter = 0;
-    const addUser = document.getElementById("add_new_user");
 
     function checkInput(e) {
         if (e.key === 'Enter') {
@@ -68,8 +71,7 @@ function checkInputContent(apiUrl, dataValues, usersTable) {
     }
 
     allInput.forEach(e => {
-        e.addEventListener('keypress', checkInput);
-
+        e.addEventListener('keypress', checkInput)
     });
 }
 
@@ -91,19 +93,17 @@ async function postUserToApi(apiUrl, allInput, dataValues, usersTable) {
         });
         const json = await response.json();
         console.log('Успех:', JSON.stringify(json));
-        removeAndMakeTbody()
-        await makeTableAndContent(apiUrl, dataValues);
-        const tBody = document.querySelector("tbody");
-        checkAndAddNewUser(usersTable, dataValues, tBody, apiUrl);
+        let tBody = removeAndMakeTbody()
+        makeNewTableBodyFromApi(usersTable, dataValues, tBody, apiUrl);
     } catch (error) {
         console.error('Ошибка:', error);
     }
 }
 
 function makeAndAddLabel(startContent) {
-    let label = document.createElement("label"),
-        textInput = document.createElement("input"),
-        td = document.createElement("td");
+    const label = document.createElement("label");
+    const textInput = document.createElement("input");
+    const td = document.createElement("td");
     textInput.type = "text";
     textInput.placeholder = startContent;
     label.append(textInput);
@@ -111,19 +111,20 @@ function makeAndAddLabel(startContent) {
     return td;
 }
 
-function makeAndRemoveTable(apiUrl, dataValues) {
+function makeAndRemoveTable(apiUrl, dataValues, usersTable) {
     makeTableAndContent(apiUrl, dataValues)
-        .then(() => removeColumn(apiUrl, dataValues))
+        .then(() => removeColumn(apiUrl, dataValues, usersTable))
 }
 
-function removeColumn(apiUrl, dataValues) {
+function removeColumn(apiUrl, dataValues, usersTable) {
+
     document.querySelectorAll(".removeButton").forEach(element => {
         element.addEventListener("click", function () {
             fetch(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`, {
                 method: 'DELETE',
             }).then(function () {
-                removeAndMakeTbody();
-                makeAndRemoveTable(apiUrl, dataValues);
+                let tBody =removeAndMakeTbody();
+                    makeNewTableBodyFromApi(usersTable, dataValues, tBody, apiUrl);
             });
         });
     });
@@ -144,7 +145,7 @@ function makeTableAndContent(apiUrl, dataValues) {
         allData.forEach(element => {
             arr.push(element);
         })
-        makeTableBody(arr, dataValues, "td");
+        makeTableBodyFromData(arr, dataValues, "td");
     })
     return data;
 }
@@ -175,7 +176,7 @@ function makeTableHead(object, tagName) {
     makeTableElement(typeRow, tagName, headTr, "Действия");
 }
 
-function makeTableBody(dataObject, dataValues, tagName) {
+function makeTableBodyFromData(dataObject, dataValues, tagName) {
     const tableBody = document.querySelector('tbody');
 
     dataObject.forEach((dataItem, index) => {
