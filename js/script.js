@@ -123,7 +123,7 @@ function removeColumn(apiUrl, dataValues, usersTable) {
             fetch(`https://5f34ff0d9124200016e1941b.mockapi.io/api/v1/friends/${element.id}`, {
                 method: 'DELETE',
             }).then(function () {
-                let tBody =removeAndMakeTbody();
+                let tBody = removeAndMakeTbody();
                     makeNewTableBodyFromApi(usersTable, dataValues, tBody, apiUrl);
             });
         });
